@@ -1,7 +1,7 @@
 <template>
   <main>
     <header>
-      <h1>Pusheen <span>Chat</span></h1>
+      <a href="/">Pusheen <span>Chat</span></a>
       <div class="button-group">
         <button class="b-red" title="Leave">x</button>
         <button class="b-yellow">x</button>
@@ -15,8 +15,23 @@
 
 
 <script>
+import { useMainStore } from '~~/stores/mainStore'
+
 export default {
- 
+  setup() {
+    const mainStore = useMainStore()
+    return { mainStore }
+  },
+  created() {
+    let char
+    if (process.client) {
+       char = localStorage.getItem("char")
+    }
+
+    if (char) {
+      this.mainStore.setChar(char)
+    }
+  }
 }
 </script>
 
@@ -37,7 +52,8 @@ body {
   background: rgb(145, 145, 145);
 }
 
-header{
+
+header {
   display: flex;
   align-items: center;
   background: rgb(255, 149, 181);
@@ -47,23 +63,24 @@ header{
   min-height: 60px;
   border-bottom: 2px solid black;
 }
-header h1{
+
+header a {
   font-size: 2.5rem;
   color: rgb(51, 51, 51);
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin-left: 5%
 }
 
-header h1 span{
+header a span {
   color: rgb(250, 250, 250)
 }
 
-.button-group{
+.button-group {
   margin-left: auto;
   margin-right: 2%
 }
 
-.button-group button{
+.button-group button {
   width: 10px;
   height: 10px;
   margin: 20px 3px;
@@ -71,22 +88,18 @@ header h1 span{
   padding: 10% 0;
 }
 
-.b-green{
-  background:rgb(47, 175, 47);
-  color: rgba(0,0,0,0)
-  
+.b-green {
+  background: rgb(47, 175, 47);
+  color: rgba(0, 0, 0, 0)
 }
 
-.b-yellow{
-  background: gold; 
-  color: rgba(0,0,0,0)
-  
+.b-yellow {
+  background: gold;
+  color: rgba(0, 0, 0, 0)
 }
 
-.b-red{
-  background:crimson;
-  color: rgba(0,0,0,0)
-  
+.b-red {
+  background: crimson;
+  color: rgba(0, 0, 0, 0)
 }
-
 </style>

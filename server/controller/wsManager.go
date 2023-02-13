@@ -23,10 +23,12 @@ type Manager struct {
 }
 
 func SetManager() *Manager {
-	return &Manager{
+	m := &Manager{
 		clients:  make(ClientList),
 		handlers: make(map[string]EventHandler),
 	}
+	m.SetEventHandler()
+	return m
 }
 
 func (manager *Manager) SetEventHandler() {
@@ -66,13 +68,13 @@ func (manager *Manager) AddNewClient(client *Client) {
 func (manager *Manager) DeleteClient(client *Client) {
 	manager.Lock()
 	defer manager.Unlock()
-
+	fmt.Println("Removed Client")
 	client.Connection.Close()
 	delete(manager.clients, client)
 }
 
 func (manager *Manager) RouteEvent(event Event, client *Client) error {
-	handler, found := manager.handlers[event.Type]
+	handler, found := manager.handlers[event.Name]
 
 	if found {
 		err := handler(event, client)

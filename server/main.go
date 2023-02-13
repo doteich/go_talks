@@ -7,7 +7,7 @@ import (
 
 func main() {
 	RouteHandler()
-	http.ListenAndServe(":3001", nil)
+	http.ListenAndServe("127.0.0.1:3001", nil)
 
 }
 

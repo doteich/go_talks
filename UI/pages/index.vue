@@ -3,11 +3,11 @@
     <h2> Select your Character and Start Chatting</h2>
     <div class="character-selection">
       <div class="char" @click="setRoute('Pusheen')">
-        <img src="../assets/pusheen-laptop.png">
+        <img src="../assets/pusheen.png">
         <h3>Pusheen</h3>
       </div>
       <div class="char">
-        <img src="../assets/pip.png" @click="setRoute('Tomcat')">
+        <img src="../assets/tomcat.png" @click="setRoute('Tomcat')">
         <h3>Tomcat</h3>
       </div>
 
@@ -24,6 +24,9 @@ export default {
   },
   methods: {
     setRoute(name) {
+      if(process.client){
+          localStorage.setItem("char", name);
+      }
       this.mainStore.setChar(name)
       this.$router.push("chat")
     }

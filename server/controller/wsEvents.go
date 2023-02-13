@@ -1,10 +1,12 @@
 package controller
 
-import "encoding/json"
+import "time"
 
 type Event struct {
-	Type    string          `json:"type"`
-	Payload json.RawMessage `json:"payload"`
+	Name      string `json:"eventName"`
+	Payload   string `json:"payload"`
+	User      string `json:"user"`
+	Timestamp time.Time
 }
 
 const (
